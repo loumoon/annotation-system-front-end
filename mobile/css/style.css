@@ -1,0 +1,490 @@
+.an-button.active-state {
+    color: #f08b00 !important;
+}
+
+.ios .navbar {
+    height: 75px;
+    color: white;;
+}
+
+.navbar-inner {
+    top: 14px;
+}
+
+.navbar-inner.index {
+    top: 20px;
+    background-color: #f7f7f8;
+}
+
+.ios .navbar ~ *:not(.no-navbar) .page-content, .ios .navbar ~ .page-content {
+    padding-top: 75px;
+}
+
+.ios .navbar ~ .page-with-subnavbar:not(.no-navbar) .subnavbar, .ios .navbar ~ .subnavbar {
+    top: 65px;
+}
+
+.ios .navbar ~ .page-with-subnavbar:not(.no-navbar) .page-content, .ios .page-with-subnavbar .navbar ~ .page-content, .ios .navbar ~ *:not(.no-navbar) .subnavbar ~ .page-content, .ios .navbar ~ *:not(.no-navbar) .subnavbar ~ * .page-content.index {
+    padding-top: 110px;
+}
+
+.ios .subnavbar.annotator {
+    margin-top: 22px;
+}
+
+.ios .list .item-content.class {
+    background-color: #f0f0f0;
+}
+
+/* .panel.annotator {
+    padding-top: 28px;
+} */
+
+a.icon {
+    color: white;
+}
+
+#box>p {
+    text-indent: 2rem;
+}
+
+*.Bton0Backgrond {
+    background-color: rgba(240, 239, 136, 0.8)
+}
+
+*.Bton1Backgrond {
+    color: rgb(196, 28, 28);
+}
+
+*.Bton2Backgrond {
+    font-weight: bolder;
+}
+
+*.Bton3Backgrond {
+    border-bottom: 2px solid #f89;
+}
+
+*.Bton4Backgrond {
+    /* font-weight: bolder; */
+    font-style: italic;
+}
+
+.ios .list.main {
+    margin-top: 0;
+}
+
+.ios .tabbar a.tab-link-active, .ios .tabbar-labels a.tab-link-active {
+    color: #f08b00;
+}
+
+.ios .navbar {
+    background-color: #f08b00;
+}
+
+.demo-card-header-pic .card-header {
+    height: 40vw;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.demo-card-header-pic .card-header .card-content-padding .date {
+    color: #8e8e93;
+}
+
+.blockquote {
+    margin: 0.2rem;
+    min-height: 1.5rem;
+}
+
+.blockquote p {
+    word-wrap: break-word;
+}
+
+.bqcolor0 {
+    border-left: 6px solid rgba(240, 239, 136, 0.8);
+}
+
+.bqcolor1 {
+    border-left: 6px solid rgb(196, 28, 28);
+}
+
+.bqcolor2 {
+    border-left: 6px solid rgba(0, 0, 0, 0.8);
+}
+
+.bqcolor3 {
+    border-left: 6px solid #f89;
+}
+
+.bqcolor4 {
+    border-left: 6px solid #b4b4b4;
+}
+
+.anpanel {
+    background-color: #ececec;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+.blockquote>p {
+    margin: 0.1rem 0 0 0.5rem;
+    color: #a6a6a6;
+    font-family: '宋体';
+    /* font-style: italic; */
+}
+
+#Mynote {
+    padding: 12px 0 0 0;
+    margin-top: 0.2rem;
+}
+
+.card-footer {
+    background: #fafafa;
+}
+
+.card-footer a {
+    color: #81848b;
+    font-weight: 500;
+}
+
+/* 用于控制侧栏内容高度和位置的样式 */
+
+.subar {
+    margin-top: -2em;
+    height: 1rem;
+}
+
+#subwrap {
+    height: 1.3rem;
+}
+
+#search {
+    height: 1.8rem;
+}
+
+#searchnav {
+    height: 2.2rem;
+}
+
+/* 图标大小 */
+
+.ios .list .f7-icons.size-18 {
+    font-size: 14px;
+    height: 14px;
+}
+
+.date.index {
+    color: #929292;
+}
+
+.ios .list ul.index {
+    background: none;
+}
+
+.ios .list ul:before {
+    background-color: unset;
+}
+
+.ios .list .size-22 {
+    font-size: 22px;
+}
+
+.block-footer.center {
+    text-align: center;
+}
+
+.ios .navbar.homework {
+    background: white;
+    height: 35px;
+}
+
+.like {
+    margin-left: 15px;
+}
+
+.twork {
+    position: fixed;
+    top: 3rem;
+}
+
+.ios .list.index {
+    margin: 0;
+}
+
+.triangle-topleft {
+    position: absolute;
+    /* top: -127px; */
+    border-top: 32px solid red;
+    border-right: 32px solid transparent;
+    z-index: 999;
+    display: inline;
+}
+
+.black {
+    color: #000;
+}
+
+.anblock {
+    color: slategrey;
+}
+
+.stitle {
+    font-size: 10px;
+}
+
+.ios .navbar .f7-icons.more {
+    font-size: 10px;
+}
+
+.cardcss {
+    padding-top: 0.2rem;
+}
+
+.cardct {
+    padding: 0 1rem;
+}
+
+.texbg {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: -1;
+    color: #999999;
+    margin-top: 3rem;
+}
+
+.popup.annotator {
+    top: unset;
+    bottom: 0;
+    height: 60%;
+}
+
+.block.annotator {
+    margin-top: 20px;
+}
+
+.content {
+    line-height: 3.5rem;
+    margin-bottom: 0;
+}
+
+.textarea {
+    font-size: 1rem;
+}
+
+.ios .list.annotator {
+    margin: 0;
+}
+
+.ios .list.class {
+    margin: 0;
+}
+
+.great {
+    color: green;
+}
+
+.jsoso {
+    color: darkorange;
+}
+
+.bad {
+    color: red;
+}
+
+.subutton {
+    background-color: white;
+    margin-top: 0.1rem;
+}
+
+.markred {
+    color: red
+}
+
+.size-30 {
+    font-size: 30px;
+}
+
+.experience {
+    margin-top: 40px;
+}
+
+.list .margin-b1 {
+    margin: 0px 0px 1px 0px;
+}
+
+.red {
+    color: red;
+}
+
+.orange {
+    color: orange;
+}
+
+.blue {
+    color: navy;
+    
+}
+
+.radius {
+    border-radius: 50px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.ios .login-screen-content .login-screen-title, .ios .login-screen-content .list, .ios .login-screen-content .block.login {
+    font-size: 20px;
+}
+
+.logo {
+    margin-top: 70px;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.col75 {
+    width: 75%;
+}
+
+.size-13 {
+    font-size: 13px;
+    height: 10px;
+    margin-right: 6px;
+}
+
+.ios .block.annotator {
+    margin-bottom: 0;
+}
+
+.size-40 {
+font-size: 40px;
+}
+
+.textcenter {
+    text-align: center;
+}
+
+.myrank {
+    font-size: 30px;
+}
+
+.size-20 {
+    font-size: 20px;
+}
+
+.rank0 {
+    margin: 0 15px;
+}
+
+.rank {
+    position: absolute;
+    /* right: 20px; */
+}
+
+.rank2 {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+}
+
+.email {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.size-14 {
+    font-size: 14px;
+}
+
+.title {
+    margin-left: 15px;
+}
+
+.margin-top-30 {
+margin-top: -30px;
+}
+
+.inline {
+    display: inline;
+}
+
+.margin-top10 {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.text_overflow{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text_overflow2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text_overflow3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ios .btn {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.create_title {
+    font-size: 16px;
+}
+
+.size-16 {
+    font-size: 16px!important;
+}
+
+.badge {
+    background: #597dc0e0;
+  }
+
+.marginlleft-6 {
+    margin-left: 6px!important;
+}
+
+.margin-top20 {
+    margin-top: 20px;
+}
+
+.create_btn {
+    width: 70%;
+}
+
+.margin0-auto {
+    margin: 0 auto;
+}
+
+.bgcolor {
+   background-color: #f08b00;
+}
+
+.name-iuput {
+    float: left;
+    width: 25px;
+    height: 44px;
+    padding-top: 7.5px;
+}

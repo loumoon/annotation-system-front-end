@@ -1,2 +1,2 @@
-# annotation-system-mobile-front-end
-Mobile front-end for an annotation system, developed  with MUI framework and HBuilderX.
+# annotation-system-front-end
+Front-end for an annotation system, including PC web and mobile web.
