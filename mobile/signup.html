@@ -103,8 +103,9 @@
 
   <script>
 
+    //返回
     $("#back").click(function () {
-      window.location.href="signin.html"
+      window.location.href = "signin.html"
     })
 
     //注册
@@ -136,8 +137,8 @@
           if (user.id == -1) {
             app.dialog.alert("用户名已被占用")
           } else {
-            app.dialog.alert("注册成功",'',function(){
-              window.location.href="signin.html";
+            app.dialog.alert("注册成功", '', function () {
+              window.location.href = "signin.html";
             });
           }
         },

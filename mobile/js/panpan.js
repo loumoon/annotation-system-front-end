@@ -1,21 +1,23 @@
 /*
 本文件函数作用于两个以上的页面
 */
-//班级，群组按钮定位函数
-$(function(){
-if(localStorage.usertype == 1){
-    $("#jump").attr("href","classlistTeacher.html");
-    $("#group_btn").attr("href","grouplist.html");
-  } 
-  else if (localStorage.usertype == 0) {
-    $("#jump").attr("href","classlist.html");
-    $("#group_btn").attr("href","grouplist.html");
-  }
-  else {
-    $("#jump").attr("href","person.html");
-    $("#group_btn").attr("href","person.html");
-  }
-});
+
+// 主菜单选择定位按钮
+$("#joined").click(function () {
+  localStorage.role = 0;
+  window.location.href = "joined_courses.html";
+})
+$("#created").click(function () {
+  localStorage.role = 1;
+  window.location.href = "created_courses.html";
+})
+$("#managed").click(function () {
+  localStorage.role = 2;
+  window.location.href = "managed_courses.html";
+})
+$("#me").click(function () {
+  window.location.href = "me.html";
+})
 
 //清除过期localstorage函数
 $(function () {

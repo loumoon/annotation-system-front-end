@@ -103,28 +103,6 @@
   <script src="js/panpan.js"></script>
 
   <script>
-    // 注销
-    function logout() {
-      $.ajax({
-        url: 'http://212.64.11.56:8080/EAnnotation/logout',
-        type: "post",
-        xhrFields: {
-          withCredentials: true
-        },
-        crossDomain: true,
-        success: function (data) {
-          window.location.href = "person.html";
-          localStorage.id = null;
-          localStorage.classid = null;
-        },
-        error: function () {
-          window.location.href = "person.html";
-          localStorage.id = null;
-          localStorage.classid = null;
-        }
-      })
-    }
-
     //登录
     $("#signin").on('touchstart', function () {
       var username = $("#signin-username").val();
@@ -152,8 +130,9 @@
           if (user.id == -1) {
             app.dialog.alert('用户名或密码错误')
           } else {
-            localStorage.id = user.id;
-            window.location.href = "course.html";
+            localStorage.userid = user.id;
+            localStorage.username = user.username;
+            window.location.href = "joined_courses.html";
           }
         },
         error: function () {
@@ -164,7 +143,6 @@
 
     //注册
     $("#signup").click(function () {
-      app.dialog.alert("hhh");
       window.location.href = "signup.html";
     })
   </script>
