@@ -94,12 +94,13 @@
             <li>
               <a href="#" class="item-link item-content class">
                 <div class="item-media">
-                  <img src="images/student.jpg" width="44" />
+                  <img src="" id="roleImage" width="44" />
                 </div>
                 <div class="item-inner">
                   <div class="item-title">
-                    <div class="item-subtitle size-14" id = "role"></div>
+                    <div class="item-title size-14" id="role"></div>
                   </div>
+                  <div class="item-subtitle size-14" id = "score"></div>
                 </div>
               </a>
             </li>
@@ -119,7 +120,7 @@
   <script src="js/jquery.min.js"></script>
   <script>
 
-    if(localStorage.viewid==0) {
+    if (localStorage.viewid == 0) {
       $("#role").html('教师批注');
     }
     // 返回按钮
@@ -135,7 +136,10 @@
 
     //获取批注annotation
     function getAnnotation() {
-      if (localStorage.viewid == 0) { // 说明是查看老师的代码
+      if (localStorage.viewid == 0) { // 查看教师批注
+        $("#role").html('教师批注');
+        $("#roleImage").attr("src","images/teacher.jpg");
+
         var courseId = localStorage.courseid;
 
         $.ajax({
@@ -146,6 +150,27 @@
           success: function (data) {
             articleId = data.articleid; // 获取文章id
             annotationId = data.id; // 获取批注id
+          },
+          error: function () {
+            app.dialog.alert("连接服务器失败");
+          }
+        })
+      } else {
+        $("#role").html('学生批注');
+        $("#roleImage").attr("src","images/student.jpg");
+
+        annotationId = localStorage.viewid;
+        $.ajax({
+          url: serverPath + '/annotation/' + annotationId,
+          type: "GET",
+          async: false,
+          success: function (data) {
+            articleId = data.articleid; // 获取文章id
+            if (data.score == -1) {
+              $("#score").html('分数: 未评分');
+            } else {
+              $("#score").html('分数: ' + data.score);
+            }
           },
           error: function () {
             app.dialog.alert("连接服务器失败");
@@ -274,13 +299,7 @@
         '<div class="card-content cardct blockquote">' +
         '<p  id="an' + contentId + '">' + comment + '</p>' +
         '</div>' +
-        '<div class="card-footer">' +
-        '<a class="link popup-open" id="change" data-popup=".popup5" onclick="modify(' + contentId +
-        ')">修改</a><a  class="link" id="delete" onclick="del(' + contentId + ')">删除</a>' +
-        '</div>' +
         '</div>');
-
-      document.getElementById(string).value = '';
     }
   </script>
 </body>

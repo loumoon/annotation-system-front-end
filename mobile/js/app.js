@@ -87,4 +87,4 @@ var calendarModal = app.calendar.create({
   dateFormat: 'yyyy-MM-dd',
 });
 
-var serverPath = "http://192.168.1.102:8080"
+var serverPath = "http://10.0.0.53:8080"

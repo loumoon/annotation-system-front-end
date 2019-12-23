@@ -63,231 +63,201 @@
 
     <!-- 右侧侧边栏 -->
     <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
-      <div class="block block-strong annotator">
-        <p>批注来源：
-          <label class="checkbox">
-            <input type="checkbox" name="student" checked="checked">
-            <i class="icon-checkbox"></i>
-          </label> 学生
-          <label class="checkbox">
-            <input type="checkbox" name="teacher" checked="checked">
-            <i class="icon-checkbox"></i>
-          </label> 教师</p>
-      </div>
-      <div id="ancontent2">
-        <div class="card cardcss" id=" + " student" + ">
-          <blockquote class=" blockquote bqcolor + 0 + ">
-            <p>???</p>
-          </blockquote>
-          <div class=" card-content cardct">
-          <p id="anPnode">hhh</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="link" id="right123" ontouchstart="like(123)">
-            <i class="f7-icons size-14">heart_fill</i><span class="123">3</span> 喜欢
-          </a>
-          <a href="#" class="link" id="change">antator:"111"</a>
-        </div>
-        <p id="rstart" style="display: none">0</p>
-        <p id="rend" style="display: none">5</p>
-        <p id="rparagraph" style="display: none">1</p>
-      </div>`
+      <div id="ancontent2"></div>
     </div>
-  </div>
 
-  <!-- Statusbar overlay -->
-  <!-- Your main view, should have "view-main" class -->
-  <div class="view view-main">
-    <!-- Initial Page, "data-name" contains page name -->
-    <!-- 头部标题栏 -->
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="left">
-          <a href="#" class="item-link icon" id="back">
-            <i class="icon f7-icons" style="font-size: 25px">chevron_left</i>
-          </a>
-        </div>
-        <div class="title">
-          <span id="title"></span>
-          <div class="stitle">
-            <span id="count"></span>
-            <i class="icon f7-icons more">down</i>
+    <!-- Statusbar overlay -->
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+      <!-- Initial Page, "data-name" contains page name -->
+      <!-- 头部标题栏 -->
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left">
+            <a href="#" class="item-link icon" id="back">
+              <i class="icon f7-icons" style="font-size: 25px">chevron_left</i>
+            </a>
+          </div>
+          <div class="title">
+            <span id="title"></span>
+            <div class="stitle">
+              <span id="count"></span>
+              <i class="icon f7-icons more">down</i>
+            </div>
+          </div>
+
+          <div class="right">
+
           </div>
         </div>
+      </div>
 
-        <div class="right">
+      <!-- 批注工具栏 -->
+      <div class="toolbar tabbar-labels">
+        <div class="toolbar-inner">
+          <!-- 工具栏标签 -->
+          <a href="#" class="tab-link an-button popup-open" id="button0">
+            <!-- Different icons for iOS and MD themes -->
+            <i class="icon f7-icons ios-only">chat_bubble_fill</i>
+            <span class="tabbar-label">背景高亮</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button1">
+            <i class="icon f7-icons ios-only">bolt</i>
+            <span class="tabbar-label">文字高亮</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button2">
+            <i class="icon f7-icons ios-only">chevron_up</i>
+            <span class="tabbar-label">加粗</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button3">
+            <i class="icon f7-icons ios-only">bars</i>
+            <span class="tabbar-label">下划线</span>
+          </a>
 
+          <!-- 其他批注 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
+            <i class="icon f7-icons ios-only">forward_fill
+            </i>
+            <span class="tabbar-label">学生批注</span>
+          </a>
         </div>
       </div>
-    </div>
-
-    <!-- 批注工具栏 -->
-    <div class="toolbar tabbar-labels">
-      <div class="toolbar-inner">
-        <!-- 工具栏标签 -->
-        <a href="#" class="tab-link an-button popup-open" id="button0">
-          <!-- Different icons for iOS and MD themes -->
-          <i class="icon f7-icons ios-only">chat_bubble_fill</i>
-          <span class="tabbar-label">背景高亮</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button1">
-          <i class="icon f7-icons ios-only">bolt</i>
-          <span class="tabbar-label">文字高亮</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button2">
-          <i class="icon f7-icons ios-only">chevron_up</i>
-          <span class="tabbar-label">加粗</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button3">
-          <i class="icon f7-icons ios-only">bars</i>
-          <span class="tabbar-label">下划线</span>
-        </a>
-
-        <!-- 其他批注 -->
-        <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
-          <i class="icon f7-icons ios-only">forward_fill
-            <span class="badge color-red" id="allantate">0</span>
-          </i>
-          <span class="tabbar-label">其他批注</span>
-        </a>
-      </div>
-    </div>
-    <!-- 内容区域 -->
-    <div class="page-content">
-      <div class="list media-list annotator">
-        <ul>
-          <li>
-            <a href="#" class="item-link item-content class">
-              <div class="item-media">
-                <img src="images/student.jpg" width="44" />
-              </div>
-              <div class="item-inner">
-                <div class="item-title">
-                  <div class="item-title size-14" id="person"></div>
+      <!-- 内容区域 -->
+      <div class="page-content">
+        <div class="list media-list annotator">
+          <ul>
+            <li>
+              <a href="#" class="item-link item-content class">
+                <div class="item-media">
+                  <img src="images/teacher.jpg" width="44" />
                 </div>
-                <div class="item-subtitle size-14">学生批注</div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div id="txblock">
-        <div class="block" id="box" style="color:black"></div>
-      </div>
-    </div>
-    <!-- 弹出页面 -->
-    <!-- 修改批注 -->
-    <div class="popup popup5 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">help_fill</i> 修改批注</p>
-        <blockquote class="blockquote bqcolor1" id="bqcolor">
-          <p id="old"></p>
-          <p id="sendID" style="display: none"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-title size-14" id="person"></div>
+                  </div>
+                  <div class="item-subtitle size-14">教师批注</div>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
-        <textarea placeholder="请输入批注" id="mod" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="modadd">修改批注</button>
-          <button class="button col-30  popup-close">取消</button>
-        </p>
+        <div id="txblock">
+          <div class="block" id="box" style="color:black"></div>
+        </div>
       </div>
-    </div>
+      <!-- 弹出页面 -->
+      <!-- 修改批注 -->
+      <div class="popup popup5 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">help_fill</i> 修改批注</p>
+          <blockquote class="blockquote bqcolor1" id="bqcolor">
+            <p id="old"></p>
+            <p id="sendID" style="display: none"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="mod" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="modadd">修改批注</button>
+            <button class="button col-30  popup-close">取消</button>
+          </p>
+        </div>
+      </div>
 
 
-    <!-- 添加背景高亮批注 -->
-    <div class="popup popup0 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">chat_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor0">
-          <p id="selectedtxt0" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加背景高亮批注 -->
+      <div class="popup popup0 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">chat_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor0">
+            <p id="selectedtxt0" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note0" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add0">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note0" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add0">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加文字高亮批注 -->
-    <div class="popup popup1 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">help_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor1">
-          <p id="selectedtxt1" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加文字高亮批注 -->
+      <div class="popup popup1 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">help_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor1">
+            <p id="selectedtxt1" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note1" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add1">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note1" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add1">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加加粗批注 -->
-    <div class="popup popup2 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">heart_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor2">
-          <p id="selectedtxt2" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加加粗批注 -->
+      <div class="popup popup2 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">heart_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor2">
+            <p id="selectedtxt2" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note2" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add2">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note2" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add2">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加下划线批注 -->
-    <div class="popup popup3 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">mic_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor3">
-          <p id="selectedtxt3" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加下划线批注 -->
+      <div class="popup popup3 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">mic_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor3">
+            <p id="selectedtxt3" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note3" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add3">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note3" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add3">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
     </div>
-  </div>
   </div>
 
   <script src="js/framework7.min.js"></script>
@@ -296,21 +266,7 @@
   <script src="js/rangy-classapplier.js"></script>
   <script src="js/jquery.min.js"></script>
   <script>
-    // 右边栏中填充教师批注
-    $$('#ancontent2').append(
-      `    <div class="card cardcss" id="` + "student" + `">
-      <blockquote class="blockquote bqcolor` + 0 + `">
-        <p>` + "教师批注" + `</p>
-      </blockquote>
-        <div class="card-footer"> 
-          <a class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">查看</a>
-        </div>
-      </div>`
-    );
-    function viewTeacherAnnotation() {
-      localStorage.viewid=0; // 0表示查看教师批注
-      window.location.href="view_annotation.html";
-    }
+    
     // 返回按钮
     var back = document.getElementById("back");
     if (back) {
@@ -474,7 +430,6 @@
     function getAnnotation() {
       var userId = localStorage.userid;
       var courseId = localStorage.courseid;
-      alert(courseId)
 
       $.ajax({
         url: serverPath + '/annotation/getTeacherAnnotation',
@@ -484,8 +439,6 @@
         success: function (data) {
           articleId = data.articleid; // 获取文章id
           annotationId = data.id; // 获取批注id
-          alert (articleId);
-          alert(annotationId);
         },
         error: function () {
           app.dialog.alert("连接服务器失败");
@@ -622,7 +575,100 @@
       document.getElementById(string).value = '';
     }
 
-    //删除批注
+    // 加载右边栏学生批注
+    function rightPenel() {
+      var courseId = localStorage.courseid;
+
+      // 加载所有的已评分学生批注
+      $.ajax({
+        url: serverPath + '/annotation/getScoredAnnotations',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          $.each(data, function (i, item) {
+            var studentId = item.userid; // 学生的id
+            var annotationId = item.id; // 批注的id
+            var score = item.score; // 分数
+
+            $.ajax({
+              url: serverPath + '/user/' + studentId,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                var studentName = data.name; // 学生的name
+                $$('#ancontent2').append(
+                  `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>分数: `+ score +`</a>
+            </div>
+          </div>`
+                );
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          })
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+
+      // 加载所有的未评分学生批注
+      $.ajax({
+        url: serverPath + '/annotation/getUnscoredAnnotations',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          $.each(data, function (i, item) {
+            var studentId = item.userid; // 学生的id
+            var annotationId = item.id; // 批注的id
+
+            $.ajax({
+              url: serverPath + '/user/' + studentId,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                var studentName = data.name; // 学生的name
+                $$('#ancontent2').append(
+                  `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>分数: 未评分</a>
+            </div>
+          </div>`
+                );
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          })
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+    };
+    $(function () {
+      rightPenel()
+    })
+
+    // 查看学生批注
+    function viewStudentAnnotation(annotationId) {
+      localStorage.viewid = annotationId;
+      window.location.href = "view_annotation.html"
+    }
+
+    // 删除批注
     function del(contentId) {
       $.ajax({
         url: serverPath + '/annotationcontent/' + contentId,
@@ -639,7 +685,7 @@
       })
     };
 
-    //修改批注
+    // 修改批注
     function modify(contentId) {
       var x = $$('#an' + contentId).text(); //获取批注的文章内容
       var t = $$('#bq' + contentId + '>p').text(); //获得原批注
@@ -701,208 +747,13 @@
       $("#allantate").text(ancount);
     }
 
-    // 右侧侧边栏显示所有批注
-    // $(function () {
-    //   $.ajax({
-    //     url: 'http://212.64.11.56:8080/EAnnotation/getAllAnnotations?annotationId=' + annId,
-    //     type: "post",
-    //     success: function (data) {
-    //       $.each(data, function (i, item) {
-    //         if (item.userType == 0) {
-    //           var antator = "学生";
-    //           var antype = "student";
-    //         } else {
-    //           antator = "教师";
-    //           var antype = "teacher";
-    //         };
-
-    //         $('#ancontent2').append(
-    //           `    <div class="card cardcss" id="` + antype + `">
-    //   <blockquote class="blockquote bqcolor` + item.type + `">
-    //     <p>` + item.selected + `</p>
-    //   </blockquote>
-    //   <div class="card-content cardct">
-    //     <p id="anPnode">` + item.content + `</p>
-    //   </div>
-    //   <div class="card-footer">
-    //   <a href="#" class="link" id="right` +
-    //           item.id + `" ontouchstart="like(` +
-    //           item.id +
-    //           `)">
-    //         <i class="f7-icons size-14">heart_fill</i><span class="` + item.id +
-    //           `">` +
-    //           item.likeCount +
-    //           `</span> 喜欢
-    //       </a>
-    //     <a href="#" class="link" id="change">` + antator + `:` + item.userName + `</a>
-    //   </div>
-    //   <p id="rstart" style="display: none">` + item.start + `</p>
-    //   <p id="rend" style="display: none">` + item.end + `</p>
-    //   <p id="rparagraph" style="display: none">` + item.paragraph + `</p>
-    // </div>`
-    //         )
-    //         if (localStorage.id != -1) {
-    //           isLike(item.id);
-    //         }
-    //       })
-    //     },
-    //     error: function (e) { }
-    //   })
-    // })
-
-    //添加批注后右侧同步
-    function reright() {
-      //清空原来的重新获取
-      $('#ancontent2').html("");
-      $.ajax({
-        url: 'http://212.64.11.56:8080/EAnnotation/getAllAnnotations?passageId=' + passageId,
-        type: "post",
-        success: function (data) {
-          $.each(data, function (i, item) {
-            if (item.userType == 0) {
-              var antator = "学生";
-              var antype = "student";
-            } else {
-              antator = "教师";
-              var antype = "teacher";
-            };
-
-            $('#ancontent2').append(
-              `    <div class="card cardcss" id="` + antype + `">
-      <blockquote class="blockquote bqcolor` + item.type + `">
-        <p>` + item.selected + `</p>
-      </blockquote>
-      <div class="card-content cardct">
-        <p id="anPnode">` + item.content + `</p>
-      </div>
-      <div class="card-footer">
-      <a href="#" class="link" id="right` +
-              item.id + `" ontouchstart="like(` +
-              item.id +
-              `)">
-            <i class="f7-icons size-14">heart_fill</i><span class="` + item.id +
-              `">` +
-              item.likeCount +
-              `</span> 喜欢
-          </a>
-        <a href="#" class="link" id="change">` + antator + `:` + item.userName + `</a>
-      </div>
-      <p id="rstart" style="display: none">` + item.start + `</p>
-      <p id="rend" style="display: none">` + item.end + `</p>
-      <p id="rparagraph" style="display: none">` + item.paragraph + `</p>
-    </div>`
-            )
-            if (localStorage.id != -1) {
-              isLike(item.id);
-            }
-          })
-        },
-        error: function (e) { }
-      })
-    }
-
-    // 批注筛选
-    $$("input[name='teacher']").change(function () {
-      if (!$$(this).is(':checked')) {
-        $$("[id=teacher]").css('display', 'none');
-      } else {
-        $$("[id=teacher]").css('display', 'block');
-      }
-    });
-    $$("input[name='student']").change(function () {
-      if (!$$(this).is(':checked')) {
-        $$("[id=student]").css('display', 'none');
-      } else {
-        $$("[id=student]").css('display', 'block');
-      }
-    });
-
-    var user = 1;
-    //获取登录者id
-    $.ajax({
-      url: 'http://212.64.11.56:8080/EAnnotation/getCurrentUser',
-      type: 'post',
-      cache: true,
-      dataType: 'jsonp',
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      success: function (data) {
-        user = data;
-      },
-      error: function () { }
-    })
-
-
-    //是否已经点赞
-    function isLike(id) {
-      $.ajax({
-        url: 'http://212.64.11.56:8080/EAnnotation/isLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-        type: "POST",
-        success: function (data) {
-          if (data == true) {
-            $('#right' + id).css("color", "#d33a32");
-          }
-        }
-      })
-    }
-
-    //点赞
-    function like(id) {
-      console.log($('#right' + id).css("color"))
-      if (localStorage.id == "-1") { //先判断是否登录
-        app.dialog.create({
-          text: '请先登录',
-          buttons: [{
-            text: '确定',
-            onClick: function () {
-              window.location.href = "person.html";
-            }
-          },],
-          verticalButtons: true,
-        }).open();
-      } else if ($('#right' + id).css("color") == "rgb(129, 132, 139)") { //根据颜色判断是否已经点过赞，如果没有爱心变蓝调用点赞接口
-        $('#right' + id).css("color", "#d33a32");
-        var count = $("span[class='" + id + "']").html();
-        $("span[class='" + id + "']").html(parseInt(count) + 1);
-
-        $.ajax({
-          url: 'http://212.64.11.56:8080/EAnnotation/setLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-          type: 'post',
-          success: function (data) {
-
-          },
-          error: function () { }
-        })
-      } else {
-        $('#right' + id).css("color", "rgb(129, 132, 139)"); //如果已经点赞了，点击后将颜色变回灰色，调用取消点赞按钮
-        var count = $("span[class='" + id + "']").html();
-        $("span[class='" + id + "']").html(parseInt(count) - 1);
-        $.ajax({
-          url: 'http://212.64.11.56:8080/EAnnotation/cancelLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-          type: 'post',
-          success: function (data) {
-
-          },
-          error: function () { }
-        })
-      }
-    }
-
-
     // 底部工具栏按钮事件
     var button0 = document.getElementById("button0");
     button0.addEventListener('touchstart', function () {
-      if (user == 0) {
-        alert("no user");
-        goload();
-      } else {
-        alert("have user");
-        getString(0);
-        anPaint(0);
-        getLocation(0);
-      }
+      getString(0);
+      anPaint(0);
+      getLocation(0);
+
       if (text && text != null) {
         app.popup.open(".popup0")
       }
@@ -910,13 +761,10 @@
 
     var botton1 = document.getElementById("button1");
     button1.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(1);
-        anPaint(1);
-        getLocation(1);
-      }
+      getString(1);
+      anPaint(1);
+      getLocation(1);
+
       if (text && text != null) {
         app.popup.open(".popup1")
       }
@@ -924,13 +772,10 @@
 
     var botton2 = document.getElementById("button2");
     button2.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(2);
-        anPaint(2);
-        getLocation(2);
-      }
+      getString(2);
+      anPaint(2);
+      getLocation(2);
+
       if (text && text != null) {
         app.popup.open(".popup2")
       }
@@ -938,13 +783,10 @@
 
     var botton3 = document.getElementById("button3");
     button3.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(3);
-        anPaint(3);
-        getLocation(3);
-      }
+      getString(3);
+      anPaint(3);
+      getLocation(3);
+
       if (text && text != null) {
         app.popup.open(".popup3")
       }

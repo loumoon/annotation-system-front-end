@@ -135,9 +135,9 @@
                 </div>
                 <div class="item-inner">
                   <div class="item-title">
-                    <div class="item-title size-14" id="person"></div>
+                    <div class="item-title size-14">我的批注</div>
                   </div>
-                  <div class="item-subtitle size-14">学生批注</div>
+                  <div class="item-subtitle size-14" id="score"></div>
                 </div>
               </a>
             </li>
@@ -268,30 +268,13 @@
   <script src="js/rangy-classapplier.js"></script>
   <script src="js/jquery.min.js"></script>
   <script>
-    // 右边栏中填充教师批注
-    $$('#ancontent2').append(
-      `    <div class="card cardcss" id="` + "student" + `">
-      <blockquote class="blockquote bqcolor` + 0 + `">
-        <p>` + "教师批注" + `</p>
-      </blockquote>
-        <div class="card-footer"> 
-          <a class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">查看</a>
-        </div>
-      </div>`
-    );
-    function viewTeacherAnnotation() {
-      localStorage.viewid = 0; // 0表示查看教师批注
-      window.location.href = "view_annotation.html";
-    }
-    // 返回按钮
+    // 返回
     var back = document.getElementById("back");
     if (back) {
       back.addEventListener('touchstart', function () {
         window.history.back(-1);
       })
     };
-
-    $("#person").html('发布人：' + localStorage.username);
 
     // 用户选中的文字
     var text;
@@ -455,6 +438,12 @@
         success: function (data) {
           articleId = data.articleid; // 获取文章id
           annotationId = data.id; // 获取批注id
+          var score = data.score;
+          if (score == -1) {
+            $("#score").html('分数: 未评分');
+          } else {
+            $("#score").html('分数: ' + score);
+          }
         },
         error: function () {
           app.dialog.alert("连接服务器失败");
@@ -591,7 +580,59 @@
       document.getElementById(string).value = '';
     }
 
-    //删除批注
+    // 加载右侧边栏批注
+    function rightPanel() {
+
+      var courseId = localStorage.courseid;
+      // 查找本课程教师的annotation
+      $.ajax({
+        url: serverPath + '/annotation/getTeacherAnnotation',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          var teacherAnnotationId = data.id;
+          if (teacherAnnotationId == -1) {
+            $$('#ancontent2').append(
+              `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p id="viewTeacherAnnotation">教师批注</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>状态: 未发布</a>
+            </div>
+          </div>`
+            );
+          } else {
+            $$('#ancontent2').append(
+              `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">教师批注</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>状态: 已发布</a>
+            </div>
+          </div>`
+            );
+          }
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+    };
+    $(function () {
+      rightPanel()
+    })
+
+    // 查看教师批注
+    function viewTeacherAnnotation() {
+      localStorage.viewid = 0;
+      window.location.href = "view_annotation.html";
+    }
+
+
+    // 删除批注
     function del(contentId) {
       $.ajax({
         url: serverPath + '/annotationcontent/' + contentId,
@@ -608,7 +649,7 @@
       })
     };
 
-    //修改批注
+    // 修改批注
     function modify(contentId) {
       var x = $$('#an' + contentId).text(); //获取批注的文章内容
       var t = $$('#bq' + contentId + '>p').text(); //获得原批注
@@ -670,208 +711,13 @@
       $("#allantate").text(ancount);
     }
 
-    // 右侧侧边栏显示所有批注
-    // $(function () {
-    //   $.ajax({
-    //     url: 'http://212.64.11.56:8080/EAnnotation/getAllAnnotations?annotationId=' + annId,
-    //     type: "post",
-    //     success: function (data) {
-    //       $.each(data, function (i, item) {
-    //         if (item.userType == 0) {
-    //           var antator = "学生";
-    //           var antype = "student";
-    //         } else {
-    //           antator = "教师";
-    //           var antype = "teacher";
-    //         };
-
-    //         $('#ancontent2').append(
-    //           `    <div class="card cardcss" id="` + antype + `">
-    //   <blockquote class="blockquote bqcolor` + item.type + `">
-    //     <p>` + item.selected + `</p>
-    //   </blockquote>
-    //   <div class="card-content cardct">
-    //     <p id="anPnode">` + item.content + `</p>
-    //   </div>
-    //   <div class="card-footer">
-    //   <a href="#" class="link" id="right` +
-    //           item.id + `" ontouchstart="like(` +
-    //           item.id +
-    //           `)">
-    //         <i class="f7-icons size-14">heart_fill</i><span class="` + item.id +
-    //           `">` +
-    //           item.likeCount +
-    //           `</span> 喜欢
-    //       </a>
-    //     <a href="#" class="link" id="change">` + antator + `:` + item.userName + `</a>
-    //   </div>
-    //   <p id="rstart" style="display: none">` + item.start + `</p>
-    //   <p id="rend" style="display: none">` + item.end + `</p>
-    //   <p id="rparagraph" style="display: none">` + item.paragraph + `</p>
-    // </div>`
-    //         )
-    //         if (localStorage.id != -1) {
-    //           isLike(item.id);
-    //         }
-    //       })
-    //     },
-    //     error: function (e) { }
-    //   })
-    // })
-
-    //添加批注后右侧同步
-    function reright() {
-      //清空原来的重新获取
-      $('#ancontent2').html("");
-      $.ajax({
-        url: 'http://212.64.11.56:8080/EAnnotation/getAllAnnotations?passageId=' + passageId,
-        type: "post",
-        success: function (data) {
-          $.each(data, function (i, item) {
-            if (item.userType == 0) {
-              var antator = "学生";
-              var antype = "student";
-            } else {
-              antator = "教师";
-              var antype = "teacher";
-            };
-
-            $('#ancontent2').append(
-              `    <div class="card cardcss" id="` + antype + `">
-      <blockquote class="blockquote bqcolor` + item.type + `">
-        <p>` + item.selected + `</p>
-      </blockquote>
-      <div class="card-content cardct">
-        <p id="anPnode">` + item.content + `</p>
-      </div>
-      <div class="card-footer">
-      <a href="#" class="link" id="right` +
-              item.id + `" ontouchstart="like(` +
-              item.id +
-              `)">
-            <i class="f7-icons size-14">heart_fill</i><span class="` + item.id +
-              `">` +
-              item.likeCount +
-              `</span> 喜欢
-          </a>
-        <a href="#" class="link" id="change">` + antator + `:` + item.userName + `</a>
-      </div>
-      <p id="rstart" style="display: none">` + item.start + `</p>
-      <p id="rend" style="display: none">` + item.end + `</p>
-      <p id="rparagraph" style="display: none">` + item.paragraph + `</p>
-    </div>`
-            )
-            if (localStorage.id != -1) {
-              isLike(item.id);
-            }
-          })
-        },
-        error: function (e) { }
-      })
-    }
-
-    // 批注筛选
-    $$("input[name='teacher']").change(function () {
-      if (!$$(this).is(':checked')) {
-        $$("[id=teacher]").css('display', 'none');
-      } else {
-        $$("[id=teacher]").css('display', 'block');
-      }
-    });
-    $$("input[name='student']").change(function () {
-      if (!$$(this).is(':checked')) {
-        $$("[id=student]").css('display', 'none');
-      } else {
-        $$("[id=student]").css('display', 'block');
-      }
-    });
-
-    var user = 1;
-    //获取登录者id
-    $.ajax({
-      url: 'http://212.64.11.56:8080/EAnnotation/getCurrentUser',
-      type: 'post',
-      cache: true,
-      dataType: 'jsonp',
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      success: function (data) {
-        user = data;
-      },
-      error: function () { }
-    })
-
-
-    //是否已经点赞
-    function isLike(id) {
-      $.ajax({
-        url: 'http://212.64.11.56:8080/EAnnotation/isLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-        type: "POST",
-        success: function (data) {
-          if (data == true) {
-            $('#right' + id).css("color", "#d33a32");
-          }
-        }
-      })
-    }
-
-    //点赞
-    function like(id) {
-      console.log($('#right' + id).css("color"))
-      if (localStorage.id == "-1") { //先判断是否登录
-        app.dialog.create({
-          text: '请先登录',
-          buttons: [{
-            text: '确定',
-            onClick: function () {
-              window.location.href = "person.html";
-            }
-          },],
-          verticalButtons: true,
-        }).open();
-      } else if ($('#right' + id).css("color") == "rgb(129, 132, 139)") { //根据颜色判断是否已经点过赞，如果没有爱心变蓝调用点赞接口
-        $('#right' + id).css("color", "#d33a32");
-        var count = $("span[class='" + id + "']").html();
-        $("span[class='" + id + "']").html(parseInt(count) + 1);
-
-        $.ajax({
-          url: 'http://212.64.11.56:8080/EAnnotation/setLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-          type: 'post',
-          success: function (data) {
-
-          },
-          error: function () { }
-        })
-      } else {
-        $('#right' + id).css("color", "rgb(129, 132, 139)"); //如果已经点赞了，点击后将颜色变回灰色，调用取消点赞按钮
-        var count = $("span[class='" + id + "']").html();
-        $("span[class='" + id + "']").html(parseInt(count) - 1);
-        $.ajax({
-          url: 'http://212.64.11.56:8080/EAnnotation/cancelLike?passageId=' + passageId + '&userId=' + localStorage.id + `&annotationId=` + id,
-          type: 'post',
-          success: function (data) {
-
-          },
-          error: function () { }
-        })
-      }
-    }
-
-
     // 底部工具栏按钮事件
     var button0 = document.getElementById("button0");
     button0.addEventListener('touchstart', function () {
-      if (user == 0) {
-        alert("no user");
-        goload();
-      } else {
-        alert("have user");
-        getString(0);
-        anPaint(0);
-        getLocation(0);
-      }
+      getString(0);
+      anPaint(0);
+      getLocation(0);
+
       if (text && text != null) {
         app.popup.open(".popup0")
       }
@@ -879,13 +725,10 @@
 
     var botton1 = document.getElementById("button1");
     button1.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(1);
-        anPaint(1);
-        getLocation(1);
-      }
+      getString(1);
+      anPaint(1);
+      getLocation(1);
+
       if (text && text != null) {
         app.popup.open(".popup1")
       }
@@ -893,13 +736,10 @@
 
     var botton2 = document.getElementById("button2");
     button2.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(2);
-        anPaint(2);
-        getLocation(2);
-      }
+      getString(2);
+      anPaint(2);
+      getLocation(2);
+
       if (text && text != null) {
         app.popup.open(".popup2")
       }
@@ -907,13 +747,10 @@
 
     var botton3 = document.getElementById("button3");
     button3.addEventListener('touchstart', function () {
-      if (user == 0) {
-        goload();
-      } else {
-        getString(3);
-        anPaint(3);
-        getLocation(3);
-      }
+      getString(3);
+      anPaint(3);
+      getLocation(3);
+
       if (text && text != null) {
         app.popup.open(".popup3")
       }
