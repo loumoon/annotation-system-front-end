@@ -63,231 +63,203 @@
 
     <!-- 右侧侧边栏 -->
     <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
-      <div class="block block-strong annotator">
-        <p>批注来源：
-          <label class="checkbox">
-            <input type="checkbox" name="student" checked="checked">
-            <i class="icon-checkbox"></i>
-          </label> 学生
-          <label class="checkbox">
-            <input type="checkbox" name="teacher" checked="checked">
-            <i class="icon-checkbox"></i>
-          </label> 教师</p>
-      </div>
-      <div id="ancontent2">
-        <div class="card cardcss" id=" + " student" + ">
-          <blockquote class=" blockquote bqcolor + 0 + ">
-            <p>???</p>
-          </blockquote>
-          <div class=" card-content cardct">
-          <p id="anPnode">hhh</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="link" id="right123" ontouchstart="like(123)">
-            <i class="f7-icons size-14">heart_fill</i><span class="123">3</span> 喜欢
-          </a>
-          <a href="#" class="link" id="change">antator:"111"</a>
-        </div>
-        <p id="rstart" style="display: none">0</p>
-        <p id="rend" style="display: none">5</p>
-        <p id="rparagraph" style="display: none">1</p>
-      </div>`
-    </div>
-  </div>
 
-  <!-- Statusbar overlay -->
-  <!-- Your main view, should have "view-main" class -->
-  <div class="view view-main">
-    <!-- Initial Page, "data-name" contains page name -->
-    <!-- 头部标题栏 -->
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="left">
-          <a href="#" class="item-link icon" id="back">
-            <i class="icon f7-icons" style="font-size: 25px">chevron_left</i>
-          </a>
-        </div>
-        <div class="title">
-          <span id="title"></span>
-          <div class="stitle">
-            <span id="count"></span>
-            <i class="icon f7-icons more">down</i>
+      <div id="ancontent2">
+
+      </div>
+    </div>
+
+    <!-- Statusbar overlay -->
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+      <!-- Initial Page, "data-name" contains page name -->
+      <!-- 头部标题栏 -->
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left">
+            <a href="#" class="item-link icon" id="back">
+              <i class="icon f7-icons" style="font-size: 25px">chevron_left</i>
+            </a>
+          </div>
+          <div class="title">
+            <span id="title"></span>
+            <div class="stitle">
+              <span id="count"></span>
+              <i class="icon f7-icons more">down</i>
+            </div>
+          </div>
+
+          <div class="right">
+
           </div>
         </div>
+      </div>
 
-        <div class="right">
+      <!-- 批注工具栏 -->
+      <div class="toolbar tabbar-labels">
+        <div class="toolbar-inner">
+          <!-- 工具栏标签 -->
+          <a href="#" class="tab-link an-button popup-open" id="button0">
+            <!-- Different icons for iOS and MD themes -->
+            <i class="icon f7-icons ios-only">chat_bubble_fill</i>
+            <span class="tabbar-label">背景高亮</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button1">
+            <i class="icon f7-icons ios-only">bolt</i>
+            <span class="tabbar-label">文字高亮</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button2">
+            <i class="icon f7-icons ios-only">chevron_up</i>
+            <span class="tabbar-label">加粗</span>
+          </a>
+          <a href="#" class="tab-link an-button popup-open" id="button3">
+            <i class="icon f7-icons ios-only">bars</i>
+            <span class="tabbar-label">下划线</span>
+          </a>
 
+          <!-- 其他批注 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
+            <i class="icon f7-icons ios-only">forward_fill</i>
+            <span class="tabbar-label">其他批注</span>
+          </a>
         </div>
       </div>
-    </div>
-
-    <!-- 批注工具栏 -->
-    <div class="toolbar tabbar-labels">
-      <div class="toolbar-inner">
-        <!-- 工具栏标签 -->
-        <a href="#" class="tab-link an-button popup-open" id="button0">
-          <!-- Different icons for iOS and MD themes -->
-          <i class="icon f7-icons ios-only">chat_bubble_fill</i>
-          <span class="tabbar-label">背景高亮</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button1">
-          <i class="icon f7-icons ios-only">bolt</i>
-          <span class="tabbar-label">文字高亮</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button2">
-          <i class="icon f7-icons ios-only">chevron_up</i>
-          <span class="tabbar-label">加粗</span>
-        </a>
-        <a href="#" class="tab-link an-button popup-open" id="button3">
-          <i class="icon f7-icons ios-only">bars</i>
-          <span class="tabbar-label">下划线</span>
-        </a>
-
-        <!-- 其他批注 -->
-        <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
-          <i class="icon f7-icons ios-only">forward_fill
-            <span class="badge color-red" id="allantate">0</span>
-          </i>
-          <span class="tabbar-label">其他批注</span>
-        </a>
-      </div>
-    </div>
-    <!-- 内容区域 -->
-    <div class="page-content">
-      <div class="list media-list annotator">
-        <ul>
-          <li>
-            <a href="#" class="item-link item-content class">
-              <div class="item-media">
-                <img src="images/student.jpg" width="44" />
-              </div>
-              <div class="item-inner">
-                <div class="item-title">
-                  <div class="item-title size-14" id="person"></div>
+      <!-- 内容区域 -->
+      <div class="page-content">
+        <div class="list media-list annotator">
+          <ul>
+            <li>
+              <a href="#" class="item-link item-content class">
+                <div class="item-media">
+                  <img src="images/student.jpg" width="44" />
                 </div>
-                <div class="item-subtitle size-14">学生批注</div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div id="txblock">
-        <div class="block" id="box" style="color:black"></div>
-      </div>
-    </div>
-    <!-- 弹出页面 -->
-    <!-- 修改批注 -->
-    <div class="popup popup5 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">help_fill</i> 修改批注</p>
-        <blockquote class="blockquote bqcolor1" id="bqcolor">
-          <p id="old"></p>
-          <p id="sendID" style="display: none"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-title size-14" id="person"></div>
+                  </div>
+                  <div class="item-subtitle size-14">学生批注</div>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
-        <textarea placeholder="请输入批注" id="mod" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="modadd">修改批注</button>
-          <button class="button col-30  popup-close">取消</button>
-        </p>
+        <div id="txblock">
+          <div class="block" id="box" style="color:black"></div>
+        </div>
       </div>
-    </div>
+      <!-- 弹出页面 -->
+      <!-- 修改批注 -->
+      <div class="popup popup5 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">help_fill</i> 修改批注</p>
+          <blockquote class="blockquote bqcolor1" id="bqcolor">
+            <p id="old"></p>
+            <p id="sendID" style="display: none"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="mod" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="modadd">修改批注</button>
+            <button class="button col-30  popup-close">取消</button>
+          </p>
+        </div>
+      </div>
 
 
-    <!-- 添加背景高亮批注 -->
-    <div class="popup popup0 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">chat_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor0">
-          <p id="selectedtxt0" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加背景高亮批注 -->
+      <div class="popup popup0 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">chat_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor0">
+            <p id="selectedtxt0" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note0" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add0">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note0" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add0">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加文字高亮批注 -->
-    <div class="popup popup1 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">help_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor1">
-          <p id="selectedtxt1" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加文字高亮批注 -->
+      <div class="popup popup1 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">help_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor1">
+            <p id="selectedtxt1" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note1" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add1">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note1" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add1">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加加粗批注 -->
-    <div class="popup popup2 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">heart_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor2">
-          <p id="selectedtxt2" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加加粗批注 -->
+      <div class="popup popup2 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">heart_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor2">
+            <p id="selectedtxt2" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note2" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add2">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note2" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add2">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
-    </div>
 
-    <!-- 添加下划线批注 -->
-    <div class="popup popup3 annotator">
-      <div class="block annotator">
-        <p>
-          <i class="icon f7-icons ios-only">mic_fill</i> 添加批注</p>
-        <blockquote class="blockquote bqcolor3">
-          <p id="selectedtxt3" class="text_overflow3"></p>
-        </blockquote>
-        <p class="content">
-          <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
-        <!-- Close Popup -->
-        <div class="item-media">
-          <i class="icon demo-list-icon"></i>
+      <!-- 添加下划线批注 -->
+      <div class="popup popup3 annotator">
+        <div class="block annotator">
+          <p>
+            <i class="icon f7-icons ios-only">mic_fill</i> 添加批注</p>
+          <blockquote class="blockquote bqcolor3">
+            <p id="selectedtxt3" class="text_overflow3"></p>
+          </blockquote>
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 批注内容</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入批注" id="note3" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill panel-open popup-close" id="add3">添加批注</button>
+            <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
+          </p>
         </div>
-        <textarea placeholder="请输入批注" id="note3" cols="45" rows="6" class="textarea"></textarea>
-        <p class="row">
-          <button class="col-30 button button-fill panel-open popup-close" id="add3">添加批注</button>
-          <button class="button col-30  popup-close" onclick="getPassage('ture')">取消</button>
-        </p>
       </div>
     </div>
-  </div>
   </div>
 
   <script src="js/framework7.min.js"></script>
@@ -308,8 +280,8 @@
       </div>`
     );
     function viewTeacherAnnotation() {
-      localStorage.viewid=0; // 0表示查看教师批注
-      window.location.href="view_annotation.html";
+      localStorage.viewid = 0; // 0表示查看教师批注
+      window.location.href = "view_annotation.html";
     }
     // 返回按钮
     var back = document.getElementById("back");
@@ -474,7 +446,6 @@
     function getAnnotation() {
       var userId = localStorage.userid;
       var courseId = localStorage.courseid;
-      alert(courseId);
 
       $.ajax({
         url: serverPath + '/annotation/getStudentAnnotation',

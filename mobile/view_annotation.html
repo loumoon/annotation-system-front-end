@@ -146,7 +146,6 @@
           success: function (data) {
             articleId = data.articleid; // 获取文章id
             annotationId = data.id; // 获取批注id
-            app.dialog.alert(annotationId);
           },
           error: function () {
             app.dialog.alert("连接服务器失败");
