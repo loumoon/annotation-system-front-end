@@ -628,6 +628,47 @@
           app.dialog.alert("连接服务器失败");
         }
       })
+
+      // 查找本课程优秀学生批注 top5
+      $.ajax({
+        url: serverPath + '/annotation/getTopNAnnotationsByCourseId',
+        type: "GET",
+        data: { courseId: courseId, n: 5 },
+        async: false,
+        success: function (data) {
+          data = data.reverse();
+          $.each(data, function (i, item) {
+            var studentId = item.userid; // 学生的id
+            var annotationId = item.id; // 批注的id
+            var score = item.score; // 分数
+
+            $.ajax({
+              url: serverPath + '/user/' + studentId,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                var studentName = data.name; // 学生的name
+                $$('#ancontent2').append(
+                  `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>分数: `+ score + `</a>
+            </div>
+          </div>`
+                );
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          })
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
     };
     $(function () {
       rightPanel()
