@@ -10,7 +10,7 @@
   <!-- Color theme for statusbar -->
   <meta name="theme-color" content="#000">
   <!-- Your app title -->
-  <title>云批</title>
+  <title></title>
   <!-- Path to Framework7 Library CSS -->
   <link rel="stylesheet" href="css/framework7.css">
   <link rel="stylesheet" href="css/framework7-icons.css">
@@ -96,8 +96,26 @@
     // 为课程列表中每个节点绑定点击事件
     $(document).on("click", ".item-link", function () {
       var courseid = $(this).attr("id");
-      app.dialog.alert(courseid);
-      window.location.href = "annotation.html";
+      localStorage.courseid = courseid;
+
+      $.ajax({
+        url: serverPath + '/annotation/getTeacherAnnotation',
+        type: "GET",
+        data: { courseId: courseid },
+        success: function (data) {
+          if(data.id==0){
+            alert("教师暂未发布课程批注");
+          } else {
+            localStorage.taannotationid = data.id;
+            localStorage.taannotationtype= 0;
+            window.location.href = "ta_score.html";
+          }
+
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
     })
 
     // 用户ID
@@ -105,11 +123,11 @@
 
     // 请求当前用户作为助教管理的所有课程，并作为列表展示出来
     $.ajax({
-      url: serverPath +'/course/getCoursesByTA',
+      url: serverPath + '/course/getCoursesByTA',
       type: "GET",
       data: { userId: userId },
       success: function (data) {
-        $.each(data, function (i, item) {
+        $.each(data.notScoredCourses, function (i, item) {
           $("ul[class=course]").append(
             `<li>
               <a href="#" onclick="annotation(` + name + `)" class="item-link item-content" id="` + item.id + `">
@@ -118,12 +136,33 @@
                 </div>
                 <div class="item-inner">
                   <div class="item-title">
-                    <div class="item-title" id="identy">` + item.name + `</div>
+                    <div class="item-title" id="identy">《` + item.articleTitle + `》</div>
                   </div>
                   <div class="item-subtitle">
                     <p> </p>
                   </div>
-                  <div class="item-text" id="more">` + item.teacherid + `</div>
+                  <div class="item-text" id="more">教师: ` + item.teacherName + ` | 批改状态: 未完成</div>
+                </div>
+              </a>
+            </li>`
+          )
+        })
+
+        $.each(data.scoredCourses, function (i, item) {
+          $("ul[class=course]").append(
+            `<li>
+              <a href="#" onclick="annotation(` + name + `)" class="item-link item-content" id="` + item.id + `">
+                <div class="item-media">
+                  <img class="radius" src="images/course.jpg" width="80" />
+                </div>
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-title" id="identy">《` + item.articleTitle + `》</div>
+                  </div>
+                  <div class="item-subtitle">
+                    <p> </p>
+                  </div>
+                  <div class="item-text" id="more">教师: ` + item.teacherName + ` 状态: 已完成批改</div>
                 </div>
               </a>
             </li>`

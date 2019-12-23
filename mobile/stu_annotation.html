@@ -10,7 +10,7 @@
   <!-- Color theme for statusbar -->
   <meta name="theme-color" content="#000">
   <!-- Your app title -->
-  <title>云批</title>
+  <title></title>
   <!-- Path to Framework7 Library CSS -->
   <link rel="stylesheet" href="css/framework7.css">
   <link rel="stylesheet" href="css/framework7-icons.css">
@@ -98,14 +98,22 @@
       <!-- 批注工具栏 -->
       <div class="toolbar tabbar-labels">
         <div class="toolbar-inner">
+
+          <!-- 批注内容 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="left">
+            <i class="icon f7-icons ios-only">favorites_fill</i>
+            <span class="tabbar-label">批注内容</span>
+          </a>
+
+
           <!-- 工具栏标签 -->
           <a href="#" class="tab-link an-button popup-open" id="button0">
             <!-- Different icons for iOS and MD themes -->
-            <i class="icon f7-icons ios-only">chat_bubble_fill</i>
+            <i class="icon f7-icons ios-only">chat_bubble</i>
             <span class="tabbar-label">背景高亮</span>
           </a>
           <a href="#" class="tab-link an-button popup-open" id="button1">
-            <i class="icon f7-icons ios-only">bolt</i>
+            <i class="icon f7-icons ios-only">bolt_fill</i>
             <span class="tabbar-label">文字高亮</span>
           </a>
           <a href="#" class="tab-link an-button popup-open" id="button2">
@@ -666,36 +674,58 @@
     });
 
     function add() {
-      var nw = $$('#mod').val();
-      var getID = $$('#sendID').text();
+      var nw = $$('#mod').val(); // 修改后的comment
+      var getID = $$('#sendID').text(); // 要修改的annotationContent的id
       $$('#an' + getID).text(nw);
-      //ajax传输给后台
-
-      // $.ajax({
-      //   url: serverPath + '/annotationcontent/' + getId,
-      //   type: "PUT",
-      //   data: JSON.stringify({
-
-      //   }),
-      //   async: false,
-      //   success: function (data) {
-      //     $$('#' + contentId).remove();
-      //     app.dialog.alert("删除成功");
-      //   },
-      //   error: function () {
-      //     app.dialog.alert("连接服务器失败");
-      //   }
-      // })
 
 
-      app.request.post('http://212.64.11.56:8080/EAnnotation/updateAnnotation', {
-        content: nw,
-        id: getID
-      }, function (data) {
-        if (data.msg == "ture") {
-          console.log("成功")
+      // stupid
+      var annid;
+      var typ;
+      var stapos;
+      var enpos;
+      var panum;
+      var cont;
+
+      $.ajax({
+        url: 'http://118.31.76.154:8080/Entity/U1e95abf6975ff/annotation/Annotationcontent/'+getID,
+        type: "GET",
+        async: false,
+        success: function (data) {
+          annid = data.annotationid;
+          typ = data.type;
+          stapos = data.startpos;
+          enpos = data.endpos;
+          panum = data.paranum;
+          cont = data.content;
+        },
+        error: function () {
+          app.dialog.alert("连接服务器失败");
         }
-      });
+      })
+
+
+      $.ajax({
+        url: 'http://118.31.76.154:8080/Entity/U1e95abf6975ff/annotation/Annotationcontent/'+getID,
+        type: "PUT",
+        data: JSON.stringify({
+          "comment": nw,
+          "annotationid" : annid,
+          "type" : typ,
+          "startpos": stapos,
+          "endpos":enpos,
+          "paranum":panum,
+          "content":cont
+        }),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+          app.dialog.alert("修改成功");
+        },
+        error: function () {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
     }
 
     // 页面上随时改变批注数量的方法

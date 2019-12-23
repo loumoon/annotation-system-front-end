@@ -61,6 +61,13 @@
       </div>
     </div>
 
+    <!-- 右侧侧边栏 -->
+    <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
+
+      <div id="ancontent2">
+
+      </div>
+    </div>
 
     <!-- Statusbar overlay -->
     <!-- Your main view, should have "view-main" class -->
@@ -88,14 +95,41 @@
         </div>
       </div>
 
-      <!-- 批注工具栏 -->
+      <!-- 底部工具栏 -->
       <div class="toolbar tabbar-labels">
         <div class="toolbar-inner">
           <!-- 批注内容 -->
           <a href="#" class="tab-link an-button panel-open" data-panel="left">
-            <i class="icon f7-icons ios-only">favorites</i>
+            <i class="icon f7-icons ios-only">favorites_fill</i>
             <span class="tabbar-label">批注内容</span>
           </a>
+          <!-- 工具栏标签 -->
+          <a href="#" class="tab-link an-button popup-open" id="setScore">
+            <i class="icon f7-icons ios-only">check_round_fill</i>
+            <span class="tabbar-label">评分</span>
+          </a>
+          <!-- 其他批注 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
+            <i class="icon f7-icons ios-only">forward_fill</i>
+            <span class="tabbar-label">批注</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 评分浮窗 -->
+      <div class="popup popup0 annotator">
+        <div class="block annotator">
+          <p class="content">
+            <i class="icon f7-icons ios-only">bookmark_fill</i> 评分</p>
+          <!-- Close Popup -->
+          <div class="item-media">
+            <i class="icon demo-list-icon"></i>
+          </div>
+          <textarea placeholder="请输入分数" id="note0" cols="45" rows="6" class="textarea"></textarea>
+          <p class="row">
+            <button class="col-30 button button-fill popup-close" id="add0">确认打分</button>
+            <button class="button col-30  popup-close">取消</button>
+          </p>
         </div>
       </div>
 
@@ -132,9 +166,6 @@
   <script src="js/jquery.min.js"></script>
   <script>
 
-    if (localStorage.viewid == 0) {
-      $("#role").html('教师批注');
-    }
     // 返回按钮
     var back = document.getElementById("back");
     if (back) {
@@ -144,51 +175,36 @@
     };
 
     var articleId; // 文章id
-    var annotationId; // 批注id
+    var annotationId = localStorage.taannotationid;
 
     //获取批注annotation
     function getAnnotation() {
-      if (localStorage.viewid == 0) { // 查看教师批注
+      if (localStorage.taannotationtype == 0) { // 查看教师批注
         $("#role").html('教师批注');
         $("#roleImage").attr("src", "images/teacher.jpg");
-
-        var courseId = localStorage.courseid;
-
-        $.ajax({
-          url: serverPath + '/annotation/getTeacherAnnotation',
-          type: "GET",
-          async: false,
-          data: { courseId: courseId },
-          success: function (data) {
-            articleId = data.articleid; // 获取文章id
-            annotationId = data.id; // 获取批注id
-          },
-          error: function () {
-            app.dialog.alert("连接服务器失败");
-          }
-        })
       } else {
         $("#role").html('学生批注');
         $("#roleImage").attr("src", "images/student.jpg");
+      }
 
-        annotationId = localStorage.viewid;
-        $.ajax({
-          url: serverPath + '/annotation/' + annotationId,
-          type: "GET",
-          async: false,
-          success: function (data) {
-            articleId = data.articleid; // 获取文章id
-            if (data.score == -1) {
-              $("#score").html('分数: 未评分');
-            } else {
+      $.ajax({
+        url: serverPath + '/annotation/' + annotationId,
+        type: "GET",
+        async: false,
+        success: function (data) {
+          articleId = data.articleid;
+          if (data.score == -1) {
+            $("#score").html('分数: 未评分');
+          } else {
+            if (data.score != -2) {
               $("#score").html('分数: ' + data.score);
             }
-          },
-          error: function () {
-            app.dialog.alert("连接服务器失败");
           }
-        })
-      }
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
     };
     $(function () {
       getAnnotation();
@@ -313,6 +329,147 @@
         '</div>' +
         '</div>');
     }
+
+    var teacherAnnotationId;
+    // 加载右侧边栏批注
+    function rightPanel() {
+      var courseId = localStorage.courseid;
+      // 加载教师批注
+      $.ajax({
+        url: serverPath + '/annotation/getTeacherAnnotation',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          teacherAnnotationId = data.id;
+          $$('#ancontent2').append(
+            `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">教师批注</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>状态: 已发布</a>
+            </div>
+          </div>`
+          );
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+
+      // 加载未评分学生批注
+      $.ajax({
+        url: serverPath + '/annotation/getUnscoredAnnotations',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          $.each(data, function (i, item) {
+            var studentId = item.userid; // 学生的id
+            var annotationId = item.id; // 批注的id
+
+            $.ajax({
+              url: serverPath + '/user/' + studentId,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                var studentName = data.name; // 学生的name
+                $$('#ancontent2').append(
+                  `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>分数: 未评分</a>
+            </div>
+          </div>`
+                );
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          })
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+
+      // 加载已评分学生批注
+      $.ajax({
+        url: serverPath + '/annotation/getScoredAnnotations',
+        type: "GET",
+        data: { courseId: courseId },
+        async: false,
+        success: function (data) {
+          $.each(data, function (i, item) {
+            var studentId = item.userid; // 学生的id
+            var annotationId = item.id; // 批注的id
+            var score = item.score; // 分数
+
+            $.ajax({
+              url: serverPath + '/user/' + studentId,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                var studentName = data.name; // 学生的name
+                $$('#ancontent2').append(
+                  `    <div class="card cardcss" id="` + "student" + `">
+          <blockquote class="blockquote bqcolor` + 0 + `">
+            <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
+          </blockquote>
+            <div class="card-footer">
+              <a>分数: `+ score + `</a>
+            </div>
+          </div>`
+                );
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          })
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+
+    };
+    $(function () {
+      rightPanel()
+    })
+
+    // 查看教师批注
+    function viewTeacherAnnotation() {
+      localStorage.taannotationtype = 0;
+      localStorage.taannotationid = teacherAnnotationId;
+      location.reload();
+    }
+    // 查看学生批注
+    function viewStudentAnnotation(annotationId) {
+      localStorage.taannotationtype = 1;
+      localStorage.taannotationid = annotationId;
+      location.reload();
+    }
+
+    // 底部评分按钮弹出浮窗
+    var setScore = document.getElementById("setScore");
+    setScore.addEventListener('touchstart', function () {
+        app.popup.open(".popup0")
+    });
+
+    // 添加评分按钮点击事件
+    var add0 = document.getElementById("add0");
+    add0.addEventListener('touchstart', function () {
+      var score = $("#note0").val();
+      
+      
+      location.reload();
+    });
+
   </script>
 </body>
 
