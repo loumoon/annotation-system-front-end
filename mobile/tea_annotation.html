@@ -474,16 +474,18 @@
     function getAnnotation() {
       var userId = localStorage.userid;
       var courseId = localStorage.courseid;
-      alert(courseId);
+      alert(courseId)
 
       $.ajax({
-        url: serverPath + '/annotation/getStudentAnnotation',
+        url: serverPath + '/annotation/getTeacherAnnotation',
         type: "GET",
         async: false,
-        data: { userId: userId, courseId: courseId },
+        data: { courseId: courseId },
         success: function (data) {
           articleId = data.articleid; // 获取文章id
           annotationId = data.id; // 获取批注id
+          alert (articleId);
+          alert(annotationId);
         },
         error: function () {
           app.dialog.alert("连接服务器失败");

@@ -118,7 +118,7 @@
       }
 
       $.ajax({
-        url: "http://10.0.0.53:8080/user/login",
+        url: serverPath + "/user/login",
         type: "POST",
         data: JSON.stringify({
           "username": username,

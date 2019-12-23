@@ -96,8 +96,8 @@
     // 为课程列表中每个节点绑定点击事件
     $(document).on("click", ".item-link", function () {
       var courseid = $(this).attr("id");
-      app.dialog.alert(courseid);
-      window.location.href = "annotation.html";
+      localStorage.courseid=courseid;
+      window.location.href = "tea_annotation.html";
     })
 
     // 用户ID
@@ -105,11 +105,11 @@
 
     // 请求当前用户作为教师创建的所有课程，并作为列表展示出来
     $.ajax({
-      url: 'http://10.0.0.53:8080/course/getCoursesByTeacher',
+      url: serverPath +'/course/getCoursesByTeacher',
       type: "GET",
       data: { userId: userId },
       success: function (data) {
-        $.each(data, function (i, item) {
+        $.each(data.annotatedCourses, function (i, item) {
           $("ul[class=course]").append(
             `<li>
               <a href="#" onclick="annotation(` + name + `)" class="item-link item-content" id="` + item.id + `">
@@ -118,17 +118,38 @@
                 </div>
                 <div class="item-inner">
                   <div class="item-title">
-                    <div class="item-title" id="identy">` + item.name + `</div>
+                    <div class="item-title" id="identy">《` + item.articleTitle + `》</div>
                   </div>
                   <div class="item-subtitle">
                     <p> </p>
                   </div>
-                  <div class="item-text" id="more">` + item.teacherid + `</div>
+                  <div class="item-text" id="more">状态:未批注</div>
                 </div>
               </a>
             </li>`
           )
         })
+        
+        $.each(data.notAnnotatedCourses, function (i, item) {
+          $("ul[class=course]").append(
+            `<li>
+              <a href="#" onclick="annotation(` + name + `)" class="item-link item-content" id="` + item.id + `">
+                <div class="item-media">
+                  <img class="radius" src="images/course.jpg" width="80" />
+                </div>
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-title" id="identy">《` + item.articleTitle + `》</div>
+                  </div>
+                  <div class="item-subtitle">
+                    <p> </p>
+                  </div>
+                  <div class="item-text" id="more">状态:已批注</div>
+                </div>
+              </a>
+            </li>`
+          )
+        }) 
       },
       error: function (e) {
         app.dialog.alert("连接服务器失败");

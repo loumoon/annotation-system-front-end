@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags-->
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000">
+  <!-- Your app title -->
+  <title>云批</title>
+  <!-- Path to Framework7 Library CSS -->
+  <link rel="stylesheet" href="css/framework7.css">
+  <link rel="stylesheet" href="css/framework7-icons.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .ios .searchbar:after {
+      background-color: white;
+    }
+
+    .ios .card {
+      margin: 8px 0 0 0;
+    }
+
+    .ios .navbar .left {
+      margin-right: 0px;
+    }
+
+    .ios .navbar b,
+    .ios .navbar .title {
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5rem;
+    }
+
+    .ios .navbar .title {
+      font-size: 16px;
+    }
+
+    .ios .media-list .item-title,
+    .ios li.media-item .item-title {
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- App root element -->
+  <div id="app">
+    <!-- 左侧边栏 -->
+    <div class="panel panel-left panel-cover anpanel annotator">
+      <div class="block" id="Mynote">
+        <div id="ancontent">
+          <div class="texbg">暂无批注</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statusbar overlay -->
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+      <!-- Initial Page, "data-name" contains page name -->
+      <!-- 头部标题栏 -->
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left">
+            <a href="#" class="item-link icon" id="back">
+              <i class="icon f7-icons" style="font-size: 25px">chevron_left</i>
+            </a>
+          </div>
+          <div class="title">
+            <span id="title"></span>
+            <div class="stitle">
+              <span id="count"></span>
+              <i class="icon f7-icons more">down</i>
+            </div>
+          </div>
+
+          <div class="right">
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 内容区域 -->
+      <div class="page-content">
+        <div class="list media-list annotator">
+          <ul>
+            <li>
+              <a href="#" class="item-link item-content class">
+                <div class="item-media">
+                  <img src="images/student.jpg" width="44" />
+                </div>
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-subtitle size-14" id = "role"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="txblock">
+          <div class="block" id="box" style="color:black"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/framework7.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/rangy-core.js"></script>
+  <script src="js/rangy-classapplier.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script>
+
+    if(localStorage.viewid==0) {
+      $("#role").html('教师批注');
+    }
+    // 返回按钮
+    var back = document.getElementById("back");
+    if (back) {
+      back.addEventListener('touchstart', function () {
+        window.history.back(-1);
+      })
+    };
+
+    var articleId; // 文章id
+    var annotationId; // 批注id
+
+    //获取批注annotation
+    function getAnnotation() {
+      if (localStorage.viewid == 0) { // 说明是查看老师的代码
+        var courseId = localStorage.courseid;
+
+        $.ajax({
+          url: serverPath + '/annotation/getTeacherAnnotation',
+          type: "GET",
+          async: false,
+          data: { courseId: courseId },
+          success: function (data) {
+            articleId = data.articleid; // 获取文章id
+            annotationId = data.id; // 获取批注id
+            app.dialog.alert(annotationId);
+          },
+          error: function () {
+            app.dialog.alert("连接服务器失败");
+          }
+        })
+      }
+    };
+    $(function () {
+      getAnnotation();
+    })
+
+    //获取文章并格式化在html元素中
+    function getArticle(dele) { //dele用来标记是否需要重新渲染侧边栏
+      $.ajax({
+        url: serverPath + '/article/' + articleId,
+        type: "GET",
+        async: false,
+        success: function (data) {
+          $("#title").html("《" + data.title + "》");
+          var content = data.content;
+          var paraList = content.split('/p');
+          var htmlContent = "";
+          paraList.forEach(function (para) {
+            paraContent = "";
+
+            var charList = para.split("");
+            charList.forEach(function (char) {
+
+              paraContent = paraContent + '<span>' + char + '</span>';
+            })
+            htmlContent = htmlContent + '<p>' + paraContent + '</p>';
+          })
+          $("#box").html(htmlContent);
+
+          getAnnotationContents(annotationId);
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+    };
+    $(function () {
+      getArticle()
+    })
+
+    // 传递annotationContent的参数
+    var par; // 段落号
+    var st; // 开始位置
+    var ed; // 结束位置
+    var type; // 批注种类
+    var contentId; // id
+    var content; // 选中文本
+    var comment; // 批注评论
+
+    // 获取annotation包含的所有annotationContent
+    function getAnnotationContents(annotationId) {
+      $.ajax({
+        url: serverPath + '/annotationcontent/getContentsByAnnotationId',
+        type: "GET",
+        data: { annotationId: annotationId },
+        async: false,
+        success: function (data) {
+          var ancount = data.length;
+          $("#count").html(ancount + "个批注");
+          parse(data);
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+    };
+
+
+    // 逐条解析annotationContent的位置、文本内容、评论等信息
+    function parse(contents) {
+      $.each(contents, function (i, item) {
+        par = item.paranum; // 段落号
+        st = item.startpos; // 开始位置
+        ed = item.endpos; // 结束位置
+        type = item.type; // 批注种类
+        contentId = item.id; // id
+        content = item.content; // 选中文本
+        comment = item.comment; // 批注评论
+
+        render();
+        leftPanel();
+      })
+    }
+
+    // 渲染annotationContent
+    function render() {
+      var px = $$("#box p")[par - 1]; // 根据段落号找到对应的<p>元素
+      // 根据annotationContent的信息创建对应的range对象
+      var range = rangy.createRange();
+      range.setStart(px, st);
+      range.setEnd(px, ed);
+      range.select();
+      // 根据批注的种类，渲染对应的特效
+      switch (type) {
+        case 0:
+          cssApplier = rangy.createClassApplier("Bton0Backgrond", false);
+          break;
+        case 1:
+          cssApplier = rangy.createClassApplier("Bton1Backgrond", false);
+          break;
+        case 2:
+          cssApplier = rangy.createClassApplier("Bton2Backgrond", false);
+          break;
+        case 3:
+          cssApplier = rangy.createClassApplier("Bton3Backgrond", false);
+          break;
+      }
+      cssApplier.toggleSelection();
+      window.getSelection().removeAllRanges();
+    }
+
+    // 加载左侧边栏批注
+    function leftPanel() {
+      var string = 'note' + type;
+
+      $$('#ancontent').append(
+        '<div class="card cardcss" id="' + contentId + '">' +
+        '<blockquote class="blockquote bqcolor' + type + '" id="bq' + contentId + '">' +
+        '<p>' + content + '</p>' +
+        '</blockquote>' +
+        '<div class="card-content cardct blockquote">' +
+        '<p  id="an' + contentId + '">' + comment + '</p>' +
+        '</div>' +
+        '<div class="card-footer">' +
+        '<a class="link popup-open" id="change" data-popup=".popup5" onclick="modify(' + contentId +
+        ')">修改</a><a  class="link" id="delete" onclick="del(' + contentId + ')">删除</a>' +
+        '</div>' +
+        '</div>');
+
+      document.getElementById(string).value = '';
+    }
+  </script>
+</body>
+
+</html>

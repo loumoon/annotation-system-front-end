@@ -49,11 +49,11 @@ a.icon {
 }
 
 *.Bton0Backgrond {
-    background-color: rgba(240, 239, 136, 0.8)
+    background-color: rgb(184, 248, 190);
 }
 
 *.Bton1Backgrond {
-    color: rgb(196, 28, 28);
+    color: rgb(240, 12, 12);
 }
 
 *.Bton2Backgrond {
@@ -61,12 +61,7 @@ a.icon {
 }
 
 *.Bton3Backgrond {
-    border-bottom: 2px solid #f89;
-}
-
-*.Bton4Backgrond {
-    /* font-weight: bolder; */
-    font-style: italic;
+    border-bottom: 2px solid rgb(0, 119, 255);
 }
 
 .ios .list.main {
@@ -102,23 +97,28 @@ a.icon {
 }
 
 .bqcolor0 {
-    border-left: 6px solid rgba(240, 239, 136, 0.8);
+    border-left: 6px solid rgba(57, 133, 64, 0.589);
+    color: rgba(57, 133, 64, 0.589);
 }
 
 .bqcolor1 {
     border-left: 6px solid rgb(196, 28, 28);
+    color: rgb(196, 28, 28);
 }
 
 .bqcolor2 {
-    border-left: 6px solid rgba(0, 0, 0, 0.8);
+    border-left: 6px solid rgb(0, 0, 0);
+    color: rgba(0, 0, 0);
 }
 
 .bqcolor3 {
-    border-left: 6px solid #f89;
+    border-left: 6px solid  rgba(16, 73, 139, 0.589);
+    color: rgba(16, 73, 139, 0.589);
 }
 
-.bqcolor4 {
-    border-left: 6px solid #b4b4b4;
+.bqcomment {
+    border-left: 6px;
+    color: rgba(61, 60, 59, 0.8);
 }
 
 .anpanel {
@@ -128,7 +128,6 @@ a.icon {
 
 .blockquote>p {
     margin: 0.1rem 0 0 0.5rem;
-    color: #a6a6a6;
     font-family: '宋体';
     /* font-style: italic; */
 }
