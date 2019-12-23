@@ -65,7 +65,7 @@
     <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
 
       <div id="ancontent2">
-
+        <div class="texbg">暂无批注</div>
       </div>
     </div>
 
@@ -170,7 +170,7 @@
     var back = document.getElementById("back");
     if (back) {
       back.addEventListener('touchstart', function () {
-        window.history.back(-1);
+        window.location.href = "managed_courses.html";
       })
     };
 
@@ -344,7 +344,7 @@
           teacherAnnotationId = data.id;
           $$('#ancontent2').append(
             `    <div class="card cardcss" id="` + "student" + `">
-          <blockquote class="blockquote bqcolor` + 0 + `">
+          <blockquote class="blockquote bqcolor` + 3 + `">
             <p class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">教师批注</p>
           </blockquote>
             <div class="card-footer">
@@ -377,7 +377,7 @@
                 var studentName = data.name; // 学生的name
                 $$('#ancontent2').append(
                   `    <div class="card cardcss" id="` + "student" + `">
-          <blockquote class="blockquote bqcolor` + 0 + `">
+          <blockquote class="blockquote bqcolor` + 1 + `">
             <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
           </blockquote>
             <div class="card-footer">
@@ -458,16 +458,56 @@
     // 底部评分按钮弹出浮窗
     var setScore = document.getElementById("setScore");
     setScore.addEventListener('touchstart', function () {
-        app.popup.open(".popup0")
+      app.popup.open(".popup0")
     });
 
     // 添加评分按钮点击事件
     var add0 = document.getElementById("add0");
     add0.addEventListener('touchstart', function () {
-      var score = $("#note0").val();
-      
-      
-      location.reload();
+      var score = Number($("#note0").val());
+      if (score < 0 || score > 100) {
+        app.dialog.alert("请输入0～100之间的数字");
+        return;
+      }
+
+      // stupid
+      var useid;
+      var artleid;
+      var courid;
+      $.ajax({
+        url: 'http://118.31.76.154:8080/Entity/U1e95abf6975ff/annotation/Annotation/' + annotationId,
+        type: "GET",
+        async: false,
+        success: function (data) {
+          useid = data.userid;
+          artleid = data.articleid;
+          courid = data.courseid;
+        },
+        error: function () {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
+
+      $.ajax({
+        url: 'http://118.31.76.154:8080/Entity/U1e95abf6975ff/annotation/Annotation/' + annotationId,
+        type: "PUT",
+        data: JSON.stringify({
+          "userid": useid,
+          "articleid": artleid,
+          "courseid": courid,
+          "score": score
+        }),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+          app.dialog.alert("评分成功", '', function () {
+            location.reload();
+          });
+        },
+        error: function () {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
     });
 
   </script>

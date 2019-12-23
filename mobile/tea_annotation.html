@@ -63,7 +63,9 @@
 
     <!-- 右侧侧边栏 -->
     <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
-      <div id="ancontent2"></div>
+      <div id="ancontent2">
+        <div class="texbg">暂无批注</div>
+      </div>
     </div>
 
     <!-- Statusbar overlay -->
@@ -276,7 +278,7 @@
     var back = document.getElementById("back");
     if (back) {
       back.addEventListener('touchstart', function () {
-        window.history.back(-1);
+        window.location.href = "created_courses.html";
       })
     };
 
@@ -643,7 +645,7 @@
                 var studentName = data.name; // 学生的name
                 $$('#ancontent2').append(
                   `    <div class="card cardcss" id="` + "student" + `">
-          <blockquote class="blockquote bqcolor` + 0 + `">
+          <blockquote class="blockquote bqcolor` + 1 + `">
             <p class="link" id="viewStudentAnnotation" onclick="viewStudentAnnotation(`+ annotationId + `)">` + studentName + `</p>
           </blockquote>
             <div class="card-footer">
@@ -680,9 +682,9 @@
         type: "DELETE",
         async: false,
         success: function (data) {
-          // $$('#' + contentId).remove();
-          // rdNum();
-          location.reload();
+          app.dialog.alert("删除成功", '', function(){
+            location.reload();
+          })
         },
         error: function () {
           app.dialog.alert("连接服务器失败");

@@ -80,7 +80,7 @@
       <div class="page-content">
         <div class="list media-list" style="margin: 0px;">
           <ul class="course">
-
+            <div class="texbg">暂无课程</div>
           </ul>
         </div>
       </div>
@@ -93,20 +93,66 @@
   <script src="js/panpan.js"></script>
 
   <script>
+    // 用户ID
+    var userId = localStorage.userid;
     // 点击课程进入批注页面
     $(document).on("click", ".item-link", function () {
       var courseid = $(this).attr("id");
-      localStorage.courseid=courseid;
+      localStorage.courseid = courseid;
+      
+      var articleId;
+      $.ajax({
+        url: serverPath + '/annotation/getStudentAnnotation',
+        type: "GET",
+        async: false,
+        data: { userId: userId, courseId: courseid },
+        success: function (data) {
+          if (data.id == -1) {
+            $.ajax({
+              url: serverPath + '/course/' + courseid,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                articleId = data.articleid;
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+
+            $.ajax({
+              url: serverPath + '/annotation/addAnnotation',
+              type: "POST",
+              async: false,
+              contentType: "application/json",
+              data: JSON.stringify({
+                "userid": userId,
+                "articleid": articleId,
+                "courseid": courseid,
+                "score": -1,
+              }),
+              success: function (data) {
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          } else {
+          }
+
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
       window.location.href = "stu_annotation.html";
     })
 
-    // 用户ID
-    userId = localStorage.userid;
-
     // 请求当前用户作为学生加入的所有课程，并作为列表展示出来
     $.ajax({
-      url: serverPath +'/course/getCoursesByStudent',
+      url: serverPath + '/course/getCoursesByStudent',
       type: "GET",
+      async: false,
       data: { userId: userId },
       success: function (data) {
         $.each(data.notAnnotatedCourses, function (i, item) {
@@ -123,13 +169,13 @@
                   <div class="item-subtitle">
                     <p> </p>
                   </div>
-                  <div class="item-text" id="more">教师: ` + item.teacherName + `</div>
+                  <div class="item-text" id="more">教师: ` + item.teacherName + ` | 状态: 未批注</div>
                 </div>
               </a>
             </li>`
           )
         })
-        
+
         $.each(data.annotatedCourses, function (i, item) {
           $("ul[class=course]").append(
             `<li>
@@ -144,12 +190,12 @@
                   <div class="item-subtitle">
                     <p> </p>
                   </div>
-                  <div class="item-text" id="more">教师: ` + item.teacherName + `</div>
+                  <div class="item-text" id="more">教师: ` + item.teacherName + ` | 状态: 已批注</div>
                 </div>
               </a>
             </li>`
           )
-        }) 
+        })
       },
       error: function (e) {
         app.dialog.alert("连接服务器失败");

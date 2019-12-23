@@ -80,7 +80,7 @@
       <div class="page-content">
         <div class="list media-list" style="margin: 0px;">
           <ul class="course">
-
+            <div class="texbg">暂无课程</div>
           </ul>
         </div>
       </div>
@@ -96,7 +96,53 @@
     // 为课程列表中每个节点绑定点击事件
     $(document).on("click", ".item-link", function () {
       var courseid = $(this).attr("id");
-      localStorage.courseid=courseid;
+      localStorage.courseid = courseid;
+
+      var articleId;
+      $.ajax({
+        url: serverPath + '/annotation/getTeacherAnnotation',
+        type: "GET",
+        async: false,
+        data: { courseId: courseid },
+        success: function (data) {
+          if (data.id == -1) {
+            $.ajax({
+              url: serverPath + '/course/' + courseid,
+              type: "GET",
+              async: false,
+              success: function (data) {
+                articleId = data.articleid;
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+
+            $.ajax({
+              url: serverPath + '/annotation/addAnnotation',
+              type: "POST",
+              async: false,
+              contentType: "application/json",
+              data: JSON.stringify({
+                "userid": userId,
+                "articleid": articleId,
+                "courseid": courseid,
+                "score": -2,
+              }),
+              success: function (data) {
+              },
+              error: function (e) {
+                app.dialog.alert("连接服务器失败");
+              }
+            })
+          } else {
+          }
+
+        },
+        error: function (e) {
+          app.dialog.alert("连接服务器失败");
+        }
+      })
       window.location.href = "tea_annotation.html";
     })
 
@@ -107,6 +153,7 @@
     $.ajax({
       url: serverPath +'/course/getCoursesByTeacher',
       type: "GET",
+      async: false,
       data: { userId: userId },
       success: function (data) {
         $.each(data.notAnnotatedCourses, function (i, item) {

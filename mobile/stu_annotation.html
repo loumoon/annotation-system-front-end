@@ -65,7 +65,7 @@
     <div class="panel panel-right panel-cover anpanel annotator" id="anpanel">
 
       <div id="ancontent2">
-
+        <div class="texbg">暂无批注</div>
       </div>
     </div>
 
@@ -280,7 +280,7 @@
     var back = document.getElementById("back");
     if (back) {
       back.addEventListener('touchstart', function () {
-        window.history.back(-1);
+        window.location.href = "joined_courses.html";
       })
     };
 
@@ -463,7 +463,7 @@
     })
 
     //获取文章并格式化在html元素中
-    function getArticle(dele) { //dele用来标记是否需要重新渲染侧边栏
+    function getArticle() {
       $.ajax({
         url: serverPath + '/article/' + articleId,
         type: "GET",
@@ -603,7 +603,7 @@
           if (teacherAnnotationId == -1) {
             $$('#ancontent2').append(
               `    <div class="card cardcss" id="` + "student" + `">
-          <blockquote class="blockquote bqcolor` + 0 + `">
+          <blockquote class="blockquote bqcolor` + 3 + `">
             <p id="viewTeacherAnnotation">教师批注</p>
           </blockquote>
             <div class="card-footer">
@@ -614,7 +614,7 @@
           } else {
             $$('#ancontent2').append(
               `    <div class="card cardcss" id="` + "student" + `">
-          <blockquote class="blockquote bqcolor` + 0 + `">
+          <blockquote class="blockquote bqcolor` + 3 + `">
             <p class="link" id="viewTeacherAnnotation" onclick="viewTeacherAnnotation()">教师批注</p>
           </blockquote>
             <div class="card-footer">
@@ -647,9 +647,9 @@
         type: "DELETE",
         async: false,
         success: function (data) {
-          // $$('#' + contentId).remove();
-          // rdNum();
-          location.reload();
+          app.dialog.alert("删除成功", '', function () {
+            location.reload();
+          });
         },
         error: function () {
           app.dialog.alert("连接服务器失败");
