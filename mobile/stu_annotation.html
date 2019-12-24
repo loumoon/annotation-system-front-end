@@ -679,6 +679,11 @@
       localStorage.viewid = 0;
       window.location.href = "view_annotation.html";
     }
+    // 查看学生批注
+    function viewStudentAnnotation(annotationId) {
+      localStorage.viewid = annotationId;
+      window.location.href = "view_annotation.html"
+    }
 
 
     // 删除批注

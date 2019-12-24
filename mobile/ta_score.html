@@ -96,25 +96,7 @@
       </div>
 
       <!-- 底部工具栏 -->
-      <div class="toolbar tabbar-labels">
-        <div class="toolbar-inner">
-          <!-- 批注内容 -->
-          <a href="#" class="tab-link an-button panel-open" data-panel="left">
-            <i class="icon f7-icons ios-only">favorites_fill</i>
-            <span class="tabbar-label">批注内容</span>
-          </a>
-          <!-- 工具栏标签 -->
-          <a href="#" class="tab-link an-button popup-open" id="setScore">
-            <i class="icon f7-icons ios-only">check_round_fill</i>
-            <span class="tabbar-label">评分</span>
-          </a>
-          <!-- 其他批注 -->
-          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
-            <i class="icon f7-icons ios-only">forward_fill</i>
-            <span class="tabbar-label">批注</span>
-          </a>
-        </div>
-      </div>
+      <div class="toolbar tabbar-labels" id="tool"></div>
 
       <!-- 评分浮窗 -->
       <div class="popup popup0 annotator">
@@ -182,9 +164,42 @@
       if (localStorage.taannotationtype == 0) { // 查看教师批注
         $("#role").html('教师批注');
         $("#roleImage").attr("src", "images/teacher.jpg");
+        $("#tool").append(
+          `<div class="toolbar-inner">
+          <!-- 批注内容 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="left">
+            <i class="icon f7-icons ios-only">favorites_fill</i>
+            <span class="tabbar-label">批注内容</span>
+          </a>
+          <!-- 其他批注 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
+            <i class="icon f7-icons ios-only">forward_fill</i>
+            <span class="tabbar-label">其他批注</span>
+          </a>
+        </div>`
+        )
       } else {
         $("#role").html('学生批注');
         $("#roleImage").attr("src", "images/student.jpg");
+        $("#tool").append(
+          `<div class="toolbar-inner">
+          <!-- 批注内容 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="left">
+            <i class="icon f7-icons ios-only">favorites_fill</i>
+            <span class="tabbar-label">批注内容</span>
+          </a>
+          <!-- 工具栏标签 -->
+          <a href="#" class="tab-link an-button popup-open" id="setScore">
+            <i class="icon f7-icons ios-only">check_round_fill</i>
+            <span class="tabbar-label">评分</span>
+          </a>
+          <!-- 其他批注 -->
+          <a href="#" class="tab-link an-button panel-open" data-panel="right" id="button5">
+            <i class="icon f7-icons ios-only">forward_fill</i>
+            <span class="tabbar-label">批注</span>
+          </a>
+        </div>`
+        )
       }
 
       $.ajax({
@@ -456,10 +471,10 @@
     }
 
     // 底部评分按钮弹出浮窗
-    var setScore = document.getElementById("setScore");
-    setScore.addEventListener('touchstart', function () {
+
+    $(document).on("click", "#setScore", function () {
       app.popup.open(".popup0")
-    });
+    })
 
     // 添加评分按钮点击事件
     var add0 = document.getElementById("add0");
