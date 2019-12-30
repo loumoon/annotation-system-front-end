@@ -1,2 +1,2 @@
 # annotation-system-front-end
-Front-end for an annotation system, including PC web and mobile web.
+Mobile front-end for an annotation system, powered by Framework7.
